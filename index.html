@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070b18" />
+  <meta name="description" content="Prévisions météo astronomiques et constellations visibles selon votre position." />
+  <title>AstroCiel — Votre fenêtre sur la nuit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23070b18'/%3E%3Cpath d='M16 5l2.3 7.2H26l-6.2 4.4 2.4 7.2-6.2-4.5-6.2 4.5 2.4-7.2L6 12.2h7.7z' fill='%237ee7ff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <header>
+    <a class="brand" href="#" aria-label="AstroCiel, accueil"><span class="brand-mark">✦</span> AstroCiel</a>
+    <button id="locationButton" class="location-chip" type="button" aria-label="Changer de position"><span>⌖</span><span id="locationName">Position requise</span><span class="chevron">⌄</span></button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow" id="dateLabel">CE SOIR</p><h1>Le ciel vous attend.</h1></div>
+      <p class="intro-copy">Conditions d'observation, meilleur créneau et constellations visibles — calculés pour votre position.</p>
+    </section>
+
+    <section id="setupCard" class="setup-card">
+      <div class="setup-icon">⌖</div>
+      <div><h2>Où observez-vous ?</h2><p>Utilisez votre position ou recherchez une ville pour obtenir les prévisions de ce soir.</p></div>
+      <button id="gpsButton" class="primary-button" type="button">Utiliser ma position</button>
+      <form id="searchForm" class="search-form"><label class="sr-only" for="cityInput">Ville</label><input id="cityInput" autocomplete="off" placeholder="Ou saisir une ville…" required><button type="submit" aria-label="Rechercher">→</button></form>
+      <p id="setupStatus" class="setup-status" role="status"></p>
+    </section>
+
+    <div id="dashboard" class="dashboard" hidden>
+      <section class="verdict-card">
+        <div class="verdict-main">
+          <div id="scoreRing" class="score-ring"><span id="scoreValue">--</span><small>/100</small></div>
+          <div><p class="card-label">CONDITIONS CE SOIR</p><h2 id="verdictText">Calcul en cours…</h2><p id="verdictDetail" class="muted">Analyse de la couverture nuageuse et de la nuit.</p></div>
+        </div>
+        <div class="window-card"><span class="window-icon">◐</span><div><span>MEILLEUR CRÉNEAU</span><strong id="bestWindow">—</strong></div></div>
+      </section>
+
+      <section class="metrics" aria-label="Conditions météo">
+        <article><span class="metric-icon">☁</span><div><p>Nuages</p><strong id="cloudValue">—</strong></div><span id="cloudHint" class="metric-hint">—</span></article>
+        <article><span class="metric-icon">◒</span><div><p>Lune</p><strong id="moonValue">—</strong></div><span class="metric-hint">illumination</span></article>
+        <article><span class="metric-icon">◌</span><div><p>Humidité</p><strong id="humidityValue">—</strong></div><span id="humidityHint" class="metric-hint">—</span></article>
+        <article><span class="metric-icon">☂</span><div><p>Pluie</p><strong id="rainValue">—</strong></div><span class="metric-hint">probabilité max.</span></article>
+      </section>
+
+      <section class="timeline-section">
+        <div class="section-heading"><div><p class="card-label">PRÉVISION HORAIRE</p><h2>La nuit, heure par heure</h2></div><div class="legend"><span><i class="good"></i>Bon</span><span><i class="average"></i>Moyen</span><span><i class="poor"></i>Mauvais</span></div></div>
+        <div id="timeline" class="timeline"></div>
+        <p id="nightInfo" class="night-info">Nuit astronomique : calcul en cours</p>
+      </section>
+
+      <section class="constellations-section">
+        <div class="section-heading"><div><p class="card-label">AU-DESSUS DE L'HORIZON</p><h2>Constellations visibles maintenant</h2></div><div class="count"><strong id="constellationCount">0</strong><span>visibles</span></div></div>
+        <div id="constellationList" class="constellation-list"></div>
+        <p class="constellation-note">La visibilité réelle dépend aussi de la pollution lumineuse et des obstacles à l'horizon.</p>
+      </section>
+    </div>
+  </main>
+  <footer><span>AstroCiel</span><span>Données météo : Open-Meteo · Calculs astronomiques locaux</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
